@@ -1,0 +1,20 @@
+   0.54 s  digital_out[0] = LOW
+   0.54 s  digital_in[0]  = LOW
+   0.54 s  waypoint Home
+   3.80 s  waypoint Above_Pick_1
+   5.53 s  waypoint Pick_1
+   5.67 s  digital_out[0] = HIGH
+   7.49 s  waypoint Above_Pick_1
+   9.62 s  waypoint Above_Drop
+  11.31 s  waypoint Drop_1
+  11.44 s  digital_out[0] = LOW
+  13.23 s  waypoint Above_Drop
+  14.54 s  waypoint Above_Pick_2
+  16.27 s  waypoint Pick_2
+  16.41 s  digital_out[0] = HIGH
+  18.23 s  waypoint Above_Pick_2
+  19.55 s  waypoint Above_Drop
+  21.24 s  waypoint Drop_1
+  21.37 s  digital_out[0] = LOW
+  23.15 s  waypoint Above_Drop
+  24.81 s  waypoint Home

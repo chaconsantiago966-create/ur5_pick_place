@@ -1,0 +1,215 @@
+<URProgram name="pick_and_place" installation="default" installationRelativePath="default" directory="/ursim/programs" createdIn="3.15.8.106339" lastSavedIn="3.15.8.106339" robotSerialNumber="2018359999" crcValue="2588156642">
+  <kinematics status="NOT_INITIALIZED" validChecksum="false">
+    <deltaTheta value="0.0, 0.0, 0.0, 0.0, 0.0, 0.0"/>
+    <a value="0.0, -0.425, -0.39225, 0.0, 0.0, 0.0"/>
+    <d value="0.089159, 0.0, 0.0, 0.10915, 0.09465, 0.0823"/>
+    <alpha value="1.570796327, 0.0, 0.0, 1.570796327, -1.570796327, 0.0"/>
+    <jointChecksum value="-1, -1, -1, -1, -1, -1"/>
+  </kinematics>
+  <children>
+    <MainProgram runOnlyOnce="true" InitVariablesNode="false">
+      <children>
+        <Set type="DigitalOutput" payload="0.0" tcpAsCog="true">
+          <pin referencedName="digital_out[0]"/>
+          <digitalValue>0</digitalValue>
+        </Set>
+        <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+          <children>
+            <Waypoint type="Fixed" name="Home" kinematicsFlags="4">
+              <motionParameters/>
+              <position joints="0.27638, -1.343897, -1.979615, -1.388884, 1.570798, 1.847176" pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+              <poseInFeatureCoordinates pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+              <outputFlangePose pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+            </Waypoint>
+          </children>
+        </Move>
+        <Loop type="Forever">
+          <children>
+            <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+              <children>
+                <Waypoint type="Fixed" name="Above_Pick_1" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="-0.176406, -1.762947, -1.838356, -1.111094, 1.570795, 1.394391" pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Wait type="Sleep">
+              <waitTime>0.3</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" referencedName="Joint_0_name"/>
+              <children>
+                <Waypoint type="Fixed" name="Pick_1" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="-0.176406, -2.095047, -2.022065, -0.595284, 1.570795, 1.394391" pose="0.5, -0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, -0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, -0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Set type="DigitalOutput" payload="1.0" tcpAsCog="true">
+              <pin reference="../../../../Set/pin"/>
+              <digitalValue>1</digitalValue>
+            </Set>
+            <Wait type="Sleep">
+              <waitTime>0.5</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Above_Pick_1_ret" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="-0.176406, -1.762947, -1.838356, -1.111094, 1.570795, 1.394391" pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, -0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+              <children>
+                <Waypoint type="Fixed" name="Above_Drop_c1" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015" pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Wait type="Sleep">
+              <waitTime>0.3</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Drop_1_c1" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.954773, -2.240234, -0.517386, 1.570803, 2.672015" pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Set type="DigitalOutput" payload="0.0" tcpAsCog="true">
+              <pin reference="../../../../Set/pin"/>
+              <digitalValue>0</digitalValue>
+            </Set>
+            <Wait type="Sleep">
+              <waitTime>0.5</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Above_Drop_c1_ret" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015" pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+              <children>
+                <Waypoint type="Fixed" name="Above_Pick_2" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="0.584606, -1.762947, -1.838356, -1.111093, 1.5708, 2.155403" pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Wait type="Sleep">
+              <waitTime>0.3</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Pick_2" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="0.584606, -2.095048, -2.022065, -0.595282, 1.5708, 2.155403" pose="0.5, 0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, 0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, 0.2, 0.05, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Set type="DigitalOutput" payload="1.0" tcpAsCog="true">
+              <pin reference="../../../../Set/pin"/>
+              <digitalValue>1</digitalValue>
+            </Set>
+            <Wait type="Sleep">
+              <waitTime>0.5</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Above_Pick_2_ret" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="0.584606, -1.762947, -1.838356, -1.111093, 1.5708, 2.155403" pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.5, 0.2, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+              <children>
+                <Waypoint type="Fixed" name="Above_Drop_c2" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015" pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Wait type="Sleep">
+              <waitTime>0.3</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Drop_1_c2" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.954773, -2.240234, -0.517386, 1.570803, 2.672015" pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.06, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Set type="DigitalOutput" payload="0.0" tcpAsCog="true">
+              <pin reference="../../../../Set/pin"/>
+              <digitalValue>0</digitalValue>
+            </Set>
+            <Wait type="Sleep">
+              <waitTime>0.5</waitTime>
+            </Wait>
+            <Move motionType="MoveL" speed="0.25" acceleration="0.5" useActiveTCP="true">
+              <feature class="GeomFeatureReference" reference="../../Move[2]/feature"/>
+              <children>
+                <Waypoint type="Fixed" name="Above_Drop_c2_ret" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015" pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.3, 0.35, 0.25, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Move motionType="MoveJ" speed="1.0471975511965976" acceleration="1.3962634015954636" useActiveTCP="true">
+              <children>
+                <Waypoint type="Fixed" name="Home_fin" kinematicsFlags="4">
+                  <motionParameters/>
+                  <position joints="0.27638, -1.343897, -1.979615, -1.388884, 1.570798, 1.847176" pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+                  <poseInFeatureCoordinates pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+                  <outputFlangePose pose="0.4, 0.0, 0.35, 0.0, 3.1416, 0.0"/>
+                </Waypoint>
+              </children>
+            </Move>
+            <Wait type="DigitalInput">
+              <pin referencedName="digital_in[0]"/>
+              <digitalValue>1</digitalValue>
+            </Wait>
+          </children>
+        </Loop>
+      </children>
+    </MainProgram>
+  </children>
+</URProgram>

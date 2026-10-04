@@ -1,0 +1,103 @@
+def pick_and_place():
+  set_safety_mode_transition_hardness(1)
+  set_standard_analog_input_domain(0, 1)
+  set_standard_analog_input_domain(1, 1)
+  set_tool_analog_input_domain(0, 1)
+  set_tool_analog_input_domain(1, 1)
+  set_analog_outputdomain(0, 0)
+  set_analog_outputdomain(1, 0)
+  set_input_actions_to_default()
+  set_gravity([0.0, 0.0, 9.82])
+  set_tool_voltage(0)
+  set_tcp(p[0.0,0.0,0.0,0.0,0.0,0.0])
+  set_payload(0.0)
+  step_count_3ca0964b_d3b5_4dd0_88eb_9aa010130301 = 0.0
+  thread Step_Counter_Thread_51c0c45e_7c26_412b_90fc_efd72c16558b():
+    while (True):
+      step_count_3ca0964b_d3b5_4dd0_88eb_9aa010130301 = step_count_3ca0964b_d3b5_4dd0_88eb_9aa010130301 + 1.0
+      sync()
+    end
+  end
+  run Step_Counter_Thread_51c0c45e_7c26_412b_90fc_efd72c16558b()
+  $ 1 "Robot Program"
+  $ 2 "Set DO[0]=Off"
+  set_standard_digital_out(0, False)
+  set_payload(0.0)
+  $ 3 "MoveJ"
+  $ 4 "Home" "breakAfter"
+  movej(get_inverse_kin(p[.400000000000, .000000000000, .350000000000, .000000000000, 3.141600000000, .000000000000], qnear=[0.27638, -1.343897, -1.979615, -1.388884, 1.570798, 1.847176]), a=1.3962634015954636, v=1.0471975511965976)
+  $ 5 "Loop"
+  while (True):
+    $ 6 "MoveJ"
+    $ 7 "Above_Pick_1" "breakAfter"
+    movej(get_inverse_kin(p[.500000000000, -.200000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], qnear=[-0.176406, -1.762947, -1.838356, -1.111094, 1.570795, 1.394391]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 8 "Wait: 0.3"
+    sleep(0.3)
+    $ 9 "MoveL"
+    $ 10 "Pick_1" "breakAfter"
+    movel(p[.500000000000, -.200000000000, .050000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 11 "Set DO[0]=On"
+    set_standard_digital_out(0, True)
+    set_payload(1.0)
+    $ 12 "Wait: 0.5"
+    sleep(0.5)
+    $ 13 "MoveL"
+    $ 14 "Above_Pick_1_ret" "breakAfter"
+    movel(p[.500000000000, -.200000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 15 "MoveJ"
+    $ 16 "Above_Drop_c1" "breakAfter"
+    movej(get_inverse_kin(p[.300000000000, .350000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], qnear=[1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 17 "Wait: 0.3"
+    sleep(0.3)
+    $ 18 "MoveL"
+    $ 19 "Drop_1_c1" "breakAfter"
+    movel(p[.300000000000, .350000000000, .060000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 20 "Set DO[0]=Off"
+    set_standard_digital_out(0, False)
+    set_payload(0.0)
+    $ 21 "Wait: 0.5"
+    sleep(0.5)
+    $ 22 "MoveL"
+    $ 23 "Above_Drop_c1_ret" "breakAfter"
+    movel(p[.300000000000, .350000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 24 "MoveJ"
+    $ 25 "Above_Pick_2" "breakAfter"
+    movej(get_inverse_kin(p[.500000000000, .200000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], qnear=[0.584606, -1.762947, -1.838356, -1.111093, 1.5708, 2.155403]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 26 "Wait: 0.3"
+    sleep(0.3)
+    $ 27 "MoveL"
+    $ 28 "Pick_2" "breakAfter"
+    movel(p[.500000000000, .200000000000, .050000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 29 "Set DO[0]=On"
+    set_standard_digital_out(0, True)
+    set_payload(1.0)
+    $ 30 "Wait: 0.5"
+    sleep(0.5)
+    $ 31 "MoveL"
+    $ 32 "Above_Pick_2_ret" "breakAfter"
+    movel(p[.500000000000, .200000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 33 "MoveJ"
+    $ 34 "Above_Drop_c2" "breakAfter"
+    movej(get_inverse_kin(p[.300000000000, .350000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], qnear=[1.101219, -1.584101, -2.039471, -1.088821, 1.570803, 2.672015]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 35 "Wait: 0.3"
+    sleep(0.3)
+    $ 36 "MoveL"
+    $ 37 "Drop_1_c2" "breakAfter"
+    movel(p[.300000000000, .350000000000, .060000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 38 "Set DO[0]=Off"
+    set_standard_digital_out(0, False)
+    set_payload(0.0)
+    $ 39 "Wait: 0.5"
+    sleep(0.5)
+    $ 40 "MoveL"
+    $ 41 "Above_Drop_c2_ret" "breakAfter"
+    movel(p[.300000000000, .350000000000, .250000000000, .000000000000, 3.141600000000, .000000000000], a=0.5, v=0.25)
+    $ 42 "MoveJ"
+    $ 43 "Home_fin" "breakAfter"
+    movej(get_inverse_kin(p[.400000000000, .000000000000, .350000000000, .000000000000, 3.141600000000, .000000000000], qnear=[0.27638, -1.343897, -1.979615, -1.388884, 1.570798, 1.847176]), a=1.3962634015954636, v=1.0471975511965976)
+    $ 44 "Wait DI[0]=HI"
+    while (get_standard_digital_in(0) == False):
+      sync()
+    end
+  end
+end

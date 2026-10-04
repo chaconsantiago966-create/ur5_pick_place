@@ -1,0 +1,45 @@
+ Program
+   Robot Program
+     Set DO[0]=Off
+     MoveJ
+       Home
+     Loop
+       MoveJ
+         Above_Pick_1
+       Wait: 0.3
+       MoveL
+         Pick_1
+       Set DO[0]=On
+       Wait: 0.5
+       MoveL
+         Above_Pick_1_ret
+       MoveJ
+         Above_Drop_c1
+       Wait: 0.3
+       MoveL
+         Drop_1_c1
+       Set DO[0]=Off
+       Wait: 0.5
+       MoveL
+         Above_Drop_c1_ret
+       MoveJ
+         Above_Pick_2
+       Wait: 0.3
+       MoveL
+         Pick_2
+       Set DO[0]=On
+       Wait: 0.5
+       MoveL
+         Above_Pick_2_ret
+       MoveJ
+         Above_Drop_c2
+       Wait: 0.3
+       MoveL
+         Drop_1_c2
+       Set DO[0]=Off
+       Wait: 0.5
+       MoveL
+         Above_Drop_c2_ret
+       MoveJ
+         Home_fin
+       Wait DI[0]=HI

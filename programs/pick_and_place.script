@@ -1,0 +1,87 @@
+# ============================================================================
+#  Pick and Place - UR5 (CB3 / PolyScope 3.x)
+#
+#  Version legible en URScript del programa pick_and_place.urp. Reproduce la
+#  misma secuencia que genera PolyScope (ver pick_and_place_polyscope.script),
+#  agrupada en funciones para que la logica se lea de un vistazo.
+#
+#  Dos puntos de recogida (Pick_1, Pick_2), un punto de entrega (Drop_1),
+#  waypoints intermedios de seguridad sobre cada uno, control del efector final
+#  por digital_out[0] y reinicio del ciclo por digital_in[0].
+#
+#  Se puede enviar tal cual a la interfaz secundaria del controlador:
+#    cat pick_and_place.script | nc <ip_robot> 30002
+# ============================================================================
+
+def pick_and_place():
+
+  # ---------------------------------------------------------------- ajustes
+  global v_libre   = 1.0471975511965976   # rad/s   movimientos articulares
+  global a_libre   = 1.3962634015954636   # rad/s^2
+  global v_approx  = 0.25                 # m/s     tramos verticales
+  global a_approx  = 0.5                  # m/s^2
+  global t_garra   = 0.5                  # s       actuacion del efector
+  global t_wp      = 0.3                  # s       pausa en punto intermedio
+  global m_pieza   = 1.0                  # kg      carga util transportada
+
+  # ------------------------------------------------------------- waypoints
+  # Orientacion comun: eje Z de la herramienta hacia -Z de la base.
+  global Home          = p[0.400,  0.000, 0.350, 0.0, 3.1416, 0.0]
+
+  global Above_Pick_1  = p[0.500, -0.200, 0.250, 0.0, 3.1416, 0.0]
+  global Pick_1        = p[0.500, -0.200, 0.050, 0.0, 3.1416, 0.0]
+
+  global Above_Pick_2  = p[0.500,  0.200, 0.250, 0.0, 3.1416, 0.0]
+  global Pick_2        = p[0.500,  0.200, 0.050, 0.0, 3.1416, 0.0]
+
+  global Above_Drop    = p[0.300,  0.350, 0.250, 0.0, 3.1416, 0.0]
+  global Drop_1        = p[0.300,  0.350, 0.060, 0.0, 3.1416, 0.0]
+
+  # ----------------------------------------------------------- herramienta
+  def cerrar_garra():
+    set_standard_digital_out(0, True)     # sujetar
+    set_payload(m_pieza)                  # declarar la pieza al controlador
+    sleep(t_garra)
+  end
+
+  def abrir_garra():
+    set_standard_digital_out(0, False)    # soltar
+    set_payload(0.0)                      # liberar la carga util
+    sleep(t_garra)
+  end
+
+  # -------------------------------------------------------------- rutinas
+  # Un ciclo completo: aproximacion, recogida, transferencia y entrega.
+  def ciclo(above_pick, pick):
+    movej(above_pick, a=a_libre,  v=v_libre)      # intermedio sobre recogida
+    sleep(t_wp)
+    movel(pick,       a=a_approx, v=v_approx)     # descenso vertical
+    cerrar_garra()
+    movel(above_pick, a=a_approx, v=v_approx)     # ascenso con pieza
+    movej(Above_Drop, a=a_libre,  v=v_libre)      # intermedio sobre entrega
+    sleep(t_wp)
+    movel(Drop_1,     a=a_approx, v=v_approx)     # descenso al punto de entrega
+    abrir_garra()
+    movel(Above_Drop, a=a_approx, v=v_approx)     # retirada segura
+  end
+
+  # ------------------------------------------------------- estado inicial
+  set_standard_digital_out(0, False)
+  set_payload(0.0)
+  movej(Home, a=a_libre, v=v_libre)
+
+  while (True):
+    ciclo(Above_Pick_1, Pick_1)                   # rutina 1
+    ciclo(Above_Pick_2, Pick_2)                   # rutina 2
+
+    movej(Home, a=a_libre, v=v_libre)
+
+    # Confirmacion del operador: entrada digital 0 en estado alto.
+    textmsg("Ciclo completo. Esperando digital_in[0] = HIGH para repetir.")
+    while (get_standard_digital_in(0) == False):
+      sync()
+    end
+  end
+end
+
+pick_and_place()
